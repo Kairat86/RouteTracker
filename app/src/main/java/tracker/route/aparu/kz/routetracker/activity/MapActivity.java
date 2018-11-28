@@ -112,7 +112,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         fragmentManager.beginTransaction().add(R.id.container, myRoutesFragment).hide(myRoutesFragment).commit();
         fragmentManager.beginTransaction().add(R.id.container, mapFragment).commit();
         viewModel.getAllRecords().observe(this, records -> {
-            Log.i(TAG, "onChanged");
             myRoutesFragment.updateUI(records);
         });
     }
@@ -134,7 +133,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         mMap.animateCamera(CameraUpdateFactory.zoomTo(zoom == -1 ? 16 : zoom));
         SharedPreferences preferences = getSharedPreferences(SHARED_PREFS_ROUTE_TRACKER, MODE_PRIVATE);
         long recordId = preferences.getLong(RECORD_ID, 0);
-        Log.i(TAG, "local recordId=>" + recordId);
         if (recordId > 0) {
             this.recordId = recordId;
             preferences.edit().putLong(RECORD_ID, 0).apply();
@@ -142,7 +140,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             startRecording(recordId, fab);
         }
         if (recording) {
-            Log.i(TAG, "inserted a point");
             viewModel.insertCoordinate(new Coordinate(myLocation, this.recordId));
             viewModel.incrementRecordPointNumber(this.recordId);
         }
@@ -175,7 +172,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 Location lastLocation = locationResult.getLastLocation();
-                Log.i(TAG, "onLocationResult");
                 if (lastLocation != null && (myLocation.getLatitude() != lastLocation.getLatitude() || myLocation.getLongitude() != lastLocation.getLongitude())) {
                     myLocation = lastLocation;
                     Toast.makeText(MapActivity.this, "Received new location=>" + lastLocation, Toast.LENGTH_LONG).show();
@@ -208,7 +204,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     @Override
     protected void onDestroy() {
-        Log.i(TAG, "onDestroy");
         if (recording) {
             manager.stopUpdates();
             Intent service = new Intent(this, LocationService.class);
