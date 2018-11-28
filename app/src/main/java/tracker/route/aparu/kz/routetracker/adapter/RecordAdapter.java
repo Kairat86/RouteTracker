@@ -47,6 +47,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         return recordList.size();
     }
 
+    public void notifyDataSetChanged(List<Record> records) {
+        this.recordList = records;
+        notifyDataSetChanged();
+    }
+
     class RecordViewHolder extends RecyclerView.ViewHolder {
 
         int id;

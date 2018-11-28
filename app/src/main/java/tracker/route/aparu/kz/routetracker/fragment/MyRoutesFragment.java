@@ -26,6 +26,7 @@ public class MyRoutesFragment extends Fragment {
 
     @BindView(R.id.rvRecords)
     RecyclerView rvRecords;
+    private RecordAdapter adapter;
 
     public static MyRoutesFragment newInstance() {
         return new MyRoutesFragment();
@@ -45,6 +46,12 @@ public class MyRoutesFragment extends Fragment {
     }
 
     public void updateUI(List<Record> records) {
-        rvRecords.setAdapter(new RecordAdapter(records));
+        if (adapter == null) {
+            adapter = new RecordAdapter(records);
+            rvRecords.setAdapter(adapter);
+        } else {
+
+            adapter.notifyDataSetChanged(records);
+        }
     }
 }

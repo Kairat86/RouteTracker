@@ -112,6 +112,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         fragmentManager.beginTransaction().add(R.id.container, myRoutesFragment).hide(myRoutesFragment).commit();
         fragmentManager.beginTransaction().add(R.id.container, mapFragment).commit();
         viewModel.getAllRecords().observe(this, records -> {
+            Log.i(TAG, "onChanged");
             myRoutesFragment.updateUI(records);
         });
     }
@@ -133,6 +134,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         mMap.animateCamera(CameraUpdateFactory.zoomTo(zoom == -1 ? 16 : zoom));
         SharedPreferences preferences = getSharedPreferences(SHARED_PREFS_ROUTE_TRACKER, MODE_PRIVATE);
         long recordId = preferences.getLong(RECORD_ID, 0);
+        Log.i(TAG, "local recordId=>" + recordId);
         if (recordId > 0) {
             this.recordId = recordId;
             preferences.edit().putLong(RECORD_ID, 0).apply();
@@ -140,8 +142,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             startRecording(recordId, fab);
         }
         if (recording) {
+            Log.i(TAG, "inserted a point");
             viewModel.insertCoordinate(new Coordinate(myLocation, this.recordId));
-            viewModel.incrementRecordPointNumber(recordId);
+            viewModel.incrementRecordPointNumber(this.recordId);
         }
     }
 
