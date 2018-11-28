@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name" translatable="false">RouteTracker</string>
+    <string name="map">Map</string>
+    <string name="my_routes">My routes</string>
+    <string name="point_number">Point number: %1$d</string>
+    <string name="date">Date: %1$s</string>
+    <string name="recording">Recording your locations</string>
+</resources>

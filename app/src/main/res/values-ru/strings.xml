@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="map">Карта</string>
+    <string name="my_routes">История</string>
+    <string name="point_number">Количество точек: %1$d</string>
+    <string name="date">Дата: %1$s</string>
+    <string name="recording">Записываю Ваши координаты</string>
+</resources>
