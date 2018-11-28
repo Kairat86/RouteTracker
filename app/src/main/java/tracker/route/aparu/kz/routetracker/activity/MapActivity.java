@@ -140,7 +140,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             startRecording(recordId, fab);
         }
         if (recording) {
-            viewModel.insertCoordinate(new Coordinate(myLocation, recordId));
+            viewModel.insertCoordinate(new Coordinate(myLocation, this.recordId));
             viewModel.incrementRecordPointNumber(recordId);
         }
     }
